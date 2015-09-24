@@ -67,6 +67,53 @@ function path(to)
   }
   return result " " H"+"V;
 }
+function recurse(from,visited,hor,vert,max_len,  i,vis)
+{
+  print "at " from ", h=" hor ", v=" vert
+  indent+=1;
+  for(i in nn[from])
+  {
+    n=nn[from][i];
+    for (k=0; k<indent;k++) printf(" ");
+    print "trying " n;
+    if (n in visited)
+    {
+      indent--;
+      return; #not simple
+    }
+    new_h=hor+sqrt((x[n]-x[from])^2+(y[n]-y[from])^2);
+    new_v=vert+max(h[n]-h[from],0);
+    if (new_h>max_len) 
+    {
+      indent--;
+      return; #too long
+    }
+    if (n==start)
+    {
+      print new_h,new_v;
+      for (j in visited)
+        printf ("%d-",j);
+      print n;
+      indent--;
+      return;
+    }
+    for (j in visited)
+      vis[j]=visited[j];
+    vis[n]=1;
+    recurse(n,vis,new_h,new_v,max_len);
+  }
+  indent--;
+}
+function exhaust()
+{
+  hor=0;
+  indent=1;
+  #cycle[-1]=0; #empty cycle
+  if (max_len=="") max_len=10;
+  vertical=0;
+  recurse(start,cycle,hor,vertical,max_len);
+  exit 0;
+}
 function bellman()
 {
   dist[start] = 0;
@@ -127,6 +174,8 @@ END {
     dijkstra();
   if (algo == "bellman")
     bellman();
+  if (algo == "exhaust")
+    exhaust();
   print "unknown algorithm";
 }
 
