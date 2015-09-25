@@ -69,33 +69,34 @@ function path(to)
 }
 function recurse(from,visited,hor,vert,max_len,  i,vis)
 {
-  print "at " from ", h=" hor ", v=" vert
+  #print "at " from ", h=" hor ", v=" vert
   indent+=1;
   for(i in nn[from])
   {
     n=nn[from][i];
-    for (k=0; k<indent;k++) printf(" ");
-    print "trying " n;
+    #for (k=0; k<indent;k++) printf(" ");
+    #print "trying " n;
     if (n in visited)
     {
-      indent--;
-      return; #not simple
+      #for (k=0; k<indent;k++) printf(" ");
+      #print "not simple";
+      continue; #not simple
     }
     new_h=hor+sqrt((x[n]-x[from])^2+(y[n]-y[from])^2);
     new_v=vert+max(h[n]-h[from],0);
     if (new_h>max_len) 
     {
-      indent--;
-      return; #too long
+      #for (k=0; k<indent;k++) printf(" ");
+      #print "too long";
+      continue; #too long
     }
     if (n==start)
     {
-      print new_h,new_v;
+      printf("%d %d ",new_h,new_v);
       for (j in visited)
         printf ("%d-",j);
       print n;
-      indent--;
-      return;
+      continue;
     }
     for (j in visited)
       vis[j]=visited[j];
@@ -109,7 +110,7 @@ function exhaust()
   hor=0;
   indent=1;
   #cycle[-1]=0; #empty cycle
-  if (max_len=="") max_len=10;
+  if (max_len=="") max_len=10000;
   vertical=0;
   recurse(start,cycle,hor,vertical,max_len);
   exit 0;
