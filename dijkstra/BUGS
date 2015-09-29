@@ -1,0 +1,10 @@
+Something is wrong:
+...
+4723 104 1-23-22-26
+3736 104 1-23-26
+3327 104 1-23-22-26
+2339 104 1-23-26
+2711 70 1-23-22-26
+
+Probably some bleeding of array parameters.
+awk is ill suited to recursion, so try something different.

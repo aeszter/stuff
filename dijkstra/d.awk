@@ -67,7 +67,7 @@ function path(to)
   }
   return result " " H"+"V;
 }
-function recurse(from,visited,hor,vert,max_len,  i,vis)
+function recurse(from,visited,hor,vert,max_len,part,  i,vis,local_part)
 {
   #print "at " from ", h=" hor ", v=" vert
   indent+=1;
@@ -93,15 +93,18 @@ function recurse(from,visited,hor,vert,max_len,  i,vis)
     if (n==start)
     {
       printf("%d %d ",new_h,new_v);
-      for (j in visited)
-        printf ("%d-",j);
+      for (j in part)
+        printf ("%d-",part[j]);
       print n;
       continue;
     }
     for (j in visited)
       vis[j]=visited[j];
+    for (j in part)
+      local_part[j]=part[j];
     vis[n]=1;
-    recurse(n,vis,new_h,new_v,max_len);
+    local_part[j+1]=n;
+    recurse(n,vis,new_h,new_v,max_len,local_part);
   }
   indent--;
 }
@@ -112,7 +115,7 @@ function exhaust()
   #cycle[-1]=0; #empty cycle
   if (max_len=="") max_len=10000;
   vertical=0;
-  recurse(start,cycle,hor,vertical,max_len);
+  recurse(start,cycle,hor,vertical,max_len,initial_part);
   exit 0;
 }
 function bellman()
