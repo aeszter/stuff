@@ -1,0 +1,18 @@
+# Format: MacGPS Pro 
+# Author: Ansgar Esztermann
+# Date: 2015-07-29
+DESCRIPTION MacGPS Pro
+FIELD_DELIMITER TAB
+RECORD_DELIMITER CR
+DATATYPE TRACK
+PROLOGUE Format: UTM  M/D/Y H:M:S   2.00 hrs  Datum[108]: WGS 84
+PROLOGUE ID	Date Time	Zone	Zone	Easting	Northing	Altitude
+PROLOGUE L     ACTIVE LOG
+IFIELD CONSTANT, "T","%s"
+IFIELD LOCAL_TIME, "","%m/%d/%Y %H:%M:%S"
+IFIELD UTM_ZONE, "","%d"
+IFIELD UTM_ZONEC, "","%c"
+IFIELD UTM_EASTING, "","%.0f"
+IFIELD UTM_NORTHING, "","%.0f"
+IFIELD ALT_METERS, "","%.1f"
+

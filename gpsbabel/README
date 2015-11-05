@@ -1,0 +1,2 @@
+for f in *[0-9]; do gpsbabel -i xcsv,style=../../../macgpspro.style  -f $f -o gpx -F $f.gpx; done
+
